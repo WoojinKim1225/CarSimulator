@@ -688,7 +688,7 @@ MonoBehaviour:
   wheelBR: {fileID: 2139813475}
   wheelBase: 0
   rearTrack: 0
-  turnCurvature: 0.4
+  turnCurvature: 0.1724138
   speed: 0
 --- !u!1 &1596106531
 GameObject:

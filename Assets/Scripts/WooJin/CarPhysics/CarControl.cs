@@ -79,9 +79,14 @@ public class CarControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (steerInput == 0) steerInputDamped = 0;
-        //else steerInputDamped = Mathf.Clamp(steerInputDamped + steerInput * Time.deltaTime, -1, 1);
-        steerInputDamped = steerInput;
+        if (steerInput == 0) {
+            if (Mathf.Abs(steerInputDamped) < Time.deltaTime) steerInputDamped = 0;
+            else {
+                steerInputDamped -= Mathf.Sign(steerInputDamped) * Time.deltaTime;
+            }
+        }
+        else steerInputDamped = Mathf.Clamp(steerInputDamped + steerInput * 2f * Time.deltaTime, -1, 1);
+        //steerInputDamped = steerInput;
         gasInputDamped = Mathf.Lerp(gasInput, gasInputDamped, Mathf.Exp(-Time.deltaTime * 10f));
         ackermannAngleLeft = Mathf.Rad2Deg * Mathf.Atan2(2 * wheelBase * turnCurvature, 2 + Mathf.Sign(steerInputDamped) * rearTrack * turnCurvature) * steerInputDamped;
         ackermannAngleRight = Mathf.Rad2Deg * Mathf.Atan2(2 * wheelBase * turnCurvature, 2 - Mathf.Sign(steerInputDamped) *  rearTrack * turnCurvature) * steerInputDamped;
