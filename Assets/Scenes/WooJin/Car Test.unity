@@ -168,18 +168,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcab6148aafdd78468e7cf9175e88691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carRigidbody: {fileID: 2085898107}
-  _springAxis: {x: 0, y: 1, z: 0}
-  _rotationAxis: {x: -1, y: 0, z: 0}
-  _tireRadius: 0.32
-  _tireWidth: 0.1
-  whatIsCollideWithWheel:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _springOrigin: 0.5
-  _idleHeight: -0.2
-  _k: 8
-  _c: 5
+  _rb: {fileID: 2085898107}
+  carControl: {fileID: 1273726926}
+  restLength: 0.4
+  springTravel: 0.1
+  k: 40000
+  c: 4000
+  wheelRadius: 0.3
+  staticFrictionCoefficient: 0.9
+  kineticFrictionCoefficient: 0.8
+  rollingFrictionCoefficient: 0.01
+  staticSideFrictionCoefficient: 1.2
+  kineticSideFrictionCoefficient: 0.7
 --- !u!1 &495119894
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 495119897}
   - component: {fileID: 495119896}
   - component: {fileID: 495119895}
+  - component: {fileID: 495119898}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -216,7 +217,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -265,13 +266,57 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 495119894}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.2044961, y: 0, z: 0, w: 0.97886735}
+  m_LocalPosition: {x: 0, y: 3.2, z: -3.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 2085898108}
+  m_LocalEulerAnglesHint: {x: 23.6, y: 0, z: 0}
+--- !u!114 &495119898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495119894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1 &514456059
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +642,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1273726925}
+  - component: {fileID: 1273726926}
   m_Layer: 0
   m_Name: Wheels
   m_TagString: Untagged
@@ -623,6 +669,27 @@ Transform:
   - {fileID: 2139813474}
   m_Father: {fileID: 2085898108}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1273726926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273726924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9defd844c6545d40adaa8a76bebe70e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rb: {fileID: 2085898107}
+  wheelFL: {fileID: 464633901}
+  wheelFR: {fileID: 1761591009}
+  wheelBL: {fileID: 2008807665}
+  wheelBR: {fileID: 2139813475}
+  wheelBase: 0
+  rearTrack: 0
+  turnCurvature: 0.4
+  speed: 0
 --- !u!1 &1596106531
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +961,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 81caf0b4f4d2ac74e847cad8de1aa792, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -934,7 +1001,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -984,18 +1051,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcab6148aafdd78468e7cf9175e88691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carRigidbody: {fileID: 2085898107}
-  _springAxis: {x: 0, y: 1, z: 0}
-  _rotationAxis: {x: -1, y: 0, z: 0}
-  _tireRadius: 0.32
-  _tireWidth: 0.1
-  whatIsCollideWithWheel:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _springOrigin: 0.5
-  _idleHeight: -0.2
-  _k: 8
-  _c: 5
+  _rb: {fileID: 2085898107}
+  carControl: {fileID: 1273726926}
+  restLength: 0.4
+  springTravel: 0.1
+  k: 40000
+  c: 4000
+  wheelRadius: 0.3
+  staticFrictionCoefficient: 0.9
+  kineticFrictionCoefficient: 0.8
+  rollingFrictionCoefficient: 0.01
+  staticSideFrictionCoefficient: 1.2
+  kineticSideFrictionCoefficient: 0.7
 --- !u!1 &2008807663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,18 +1108,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcab6148aafdd78468e7cf9175e88691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carRigidbody: {fileID: 2085898107}
-  _springAxis: {x: 0, y: 1, z: 0}
-  _rotationAxis: {x: -1, y: 0, z: 0}
-  _tireRadius: 0.32
-  _tireWidth: 0.1
-  whatIsCollideWithWheel:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _springOrigin: 0.5
-  _idleHeight: -0.2
-  _k: 8
-  _c: 5
+  _rb: {fileID: 2085898107}
+  carControl: {fileID: 1273726926}
+  restLength: 0.4
+  springTravel: 0.1
+  k: 40000
+  c: 4000
+  wheelRadius: 0.3
+  staticFrictionCoefficient: 0.9
+  kineticFrictionCoefficient: 0.8
+  rollingFrictionCoefficient: 0.01
+  staticSideFrictionCoefficient: 1.2
+  kineticSideFrictionCoefficient: 0.7
 --- !u!1 &2064691168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,10 +1228,10 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085898106}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 1410
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_CenterOfMass: {x: 0, y: 0, z: 0.12}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -1173,12 +1240,12 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 10
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!4 &2085898108
 Transform:
@@ -1195,6 +1262,7 @@ Transform:
   m_Children:
   - {fileID: 557018249}
   - {fileID: 1273726925}
+  - {fileID: 495119897}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2139813473
@@ -1242,23 +1310,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcab6148aafdd78468e7cf9175e88691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carRigidbody: {fileID: 2085898107}
-  _springAxis: {x: 0, y: 1, z: 0}
-  _rotationAxis: {x: -1, y: 0, z: 0}
-  _tireRadius: 0.32
-  _tireWidth: 0.1
-  whatIsCollideWithWheel:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _springOrigin: 0.5
-  _idleHeight: -0.2
-  _k: 8
-  _c: 5
+  _rb: {fileID: 2085898107}
+  carControl: {fileID: 1273726926}
+  restLength: 0.4
+  springTravel: 0.1
+  k: 40000
+  c: 4000
+  wheelRadius: 0.3
+  staticFrictionCoefficient: 0.9
+  kineticFrictionCoefficient: 0.8
+  rollingFrictionCoefficient: 0.01
+  staticSideFrictionCoefficient: 1.2
+  kineticSideFrictionCoefficient: 0.7
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 495119897}
   - {fileID: 514456061}
   - {fileID: 1741590115}
   - {fileID: 2085898108}
