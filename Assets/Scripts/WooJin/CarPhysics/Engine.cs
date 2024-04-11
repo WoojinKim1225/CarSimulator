@@ -24,6 +24,8 @@ public class Engine : MonoBehaviour
     [SerializeField] private AnimationCurve TorqueCurve;
     [SerializeField] private AnimationCurve FuelConsumptionMap;
 
+    [SerializeField] private float maxRPM = 7000;
+
     [Header("Outputs")]
 
     public AutomaticTransmission transmission;
