@@ -1,12 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public struct TransmissionInput {
+    public float angularVelocity;
+    public float angularAcceleration;
+    public float torque;
+    public float power;
+}
+public enum EGear
+{
+    Parking = 0, Reverse = 1, Neutral = 2, Drive = 3, Maunal = 4, Sport = 5, Winter = 6, SAFEMODE = 7
+}
 public class AutomaticTransmission : MonoBehaviour
 {
-    public float maxEngineTorque = 500f;
-    public float maxRPM = 6000f;
+    public TransmissionInput Input;
     public float wInput = 0f;
+
+    public EGear gear;
+    public int currentGear;
     
     // is fist shaft applied?
     public bool c1;
@@ -27,6 +41,7 @@ public class AutomaticTransmission : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         /*
         float ringSpeed;
         if (c1) {

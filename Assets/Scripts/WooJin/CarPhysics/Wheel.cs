@@ -7,7 +7,7 @@ using UnityEngine;
 public class Wheel : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private CarControl carControl;
+    [SerializeField] private PlayerCarInput input;
 
     public float restLength;
     public float springTravel;
@@ -78,7 +78,7 @@ public class Wheel : MonoBehaviour
 
             PlayerCarControl();
 
-            _rb.AddForceAtPosition(suspensionForceWS + (Fx * transform.forward) + (Fy * transform.right), transform.position);
+            _rb.AddForceAtPosition(normalForceWS + (Fx * transform.forward) + (Fy * transform.right), transform.position);
             Debug.DrawRay(hit.point, Fx * transform.forward * 0.001f, Color.blue);
             Debug.DrawRay(hit.point, Fy * transform.right * 0.001f, Color.red);
             
@@ -105,7 +105,7 @@ public class Wheel : MonoBehaviour
             Fy = -wheelVelocityOS.x * normalForce * staticSideFrictionCoefficient;
         }
 
-        if (carControl.BrakeInput > 0)
+        if (input.BrakeUserInput > 0)
         {
             // 브레이크 밟음
             wheelRotationSpeed = 0;
@@ -120,11 +120,11 @@ public class Wheel : MonoBehaviour
             return;
         }
 
-        if (carControl.GasInput > 0)
+        if (input.GasUserInput > 0)
         {
 
-            Fx = carControl.GasInput * normalForce;
-            wheelRotationSpeed += carControl.GasInput * Time.fixedDeltaTime;
+            Fx = input.GasUserInput * normalForce;
+            wheelRotationSpeed += input.GasUserInput * Time.fixedDeltaTime;
         }
         else
         {
