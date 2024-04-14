@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -180,6 +180,18 @@ MonoBehaviour:
   rollingFrictionCoefficient: 0.01
   staticSideFrictionCoefficient: 1.2
   kineticSideFrictionCoefficient: 0.7
+  fc_DryAsphalt:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fc_WetAsphalt:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &495119894
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +562,53 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631326831}
   m_Mesh: {fileID: -5545856637793795320, guid: c609758a60f3baa48b0710a1fa89c048, type: 3}
+--- !u!1 &638705504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 638705506}
+  - component: {fileID: 638705505}
+  m_Layer: 0
+  m_Name: Air
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &638705505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638705504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c1c5e6bd0bb8c4aae62250526ff425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Temperature: 0
+  Humidity: 0
+  Precipitation: 0
+--- !u!4 &638705506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638705504}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.451625, y: 3.1787386, z: 2.65246}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &928722936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,6 +1228,18 @@ MonoBehaviour:
   rollingFrictionCoefficient: 0.01
   staticSideFrictionCoefficient: 1.2
   kineticSideFrictionCoefficient: 0.7
+  fc_DryAsphalt:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fc_WetAsphalt:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2008807663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,6 +1297,18 @@ MonoBehaviour:
   rollingFrictionCoefficient: 0.01
   staticSideFrictionCoefficient: 1.2
   kineticSideFrictionCoefficient: 0.7
+  fc_DryAsphalt:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fc_WetAsphalt:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2064691168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,6 +1491,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 2085898111}
   _throttlePosition: 0
+  carSpeed: 0
+  fanSpeed: 0
+  humidity: 0
+  state: 0
   PowerCurve:
     serializedVersion: 2
     m_Curve: []
@@ -1426,10 +1513,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  maxRPM: 7000
+  Temp: 0
   transmission: {fileID: 2085898109}
   currentTorque: 0
   currentPower: 0
-  currentAngularVelocity: 0
+  currentRPM: 0
+  currentTemperature: 0
 --- !u!114 &2085898111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1499,6 +1589,18 @@ MonoBehaviour:
   rollingFrictionCoefficient: 0.01
   staticSideFrictionCoefficient: 1.2
   kineticSideFrictionCoefficient: 0.7
+  fc_DryAsphalt:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fc_WetAsphalt:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1507,3 +1609,4 @@ SceneRoots:
   - {fileID: 1741590115}
   - {fileID: 2085898108}
   - {fileID: 1291557344}
+  - {fileID: 638705506}

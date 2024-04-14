@@ -20,7 +20,7 @@ public class Wheel : MonoBehaviour
     private float springLength;
     private float springForceSize;
 
-    private Vector3 suspensionForceWS;
+    private Vector3 suspensionForceWS => springForceSize * transform.up;
 
     [Header("Wheel")]
     public float wheelRadius;
@@ -31,6 +31,8 @@ public class Wheel : MonoBehaviour
 
     public float staticSideFrictionCoefficient;
     public float kineticSideFrictionCoefficient;
+
+    public AnimationCurve fc_DryAsphalt, fc_WetAsphalt;
 
     private Vector3 sphereCastStart;
     private Vector3 wheelCenter;
@@ -68,9 +70,15 @@ public class Wheel : MonoBehaviour
             float x = restLength - springLength; // 스프링 변위
             float v = (x - xBefore) / Time.fixedDeltaTime; // 스프링 속도
             springForceSize = k * x + c * v; 
-            suspensionForceWS = springForceSize * transform.up;
+            //suspensionForceWS = springForceSize * transform.up;
 
             wheelVelocityOS = transform.InverseTransformDirection(_rb.GetPointVelocity(hit.point)); // 접촉면의 속도
+
+
+            //wheel
+
+
+
             normalForce = math.dot(suspensionForceWS, hit.normal);
             Vector3 normalForceWS = normalForce * hit.normal; // 수직항력
 

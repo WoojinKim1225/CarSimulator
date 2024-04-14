@@ -4,34 +4,45 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public struct TransmissionInput {
-    public float angularVelocity;
-    public float angularAcceleration;
-    public float torque;
-    public float power;
-}
 public enum EGear
 {
     Parking = 0, Reverse = 1, Neutral = 2, Drive = 3, Maunal = 4, Sport = 5, Winter = 6, SAFEMODE = 7
 }
 public class AutomaticTransmission : MonoBehaviour
 {
-    public TransmissionInput Input;
-    public float wInput = 0f;
+    public float inputRPM;
 
     public EGear gear;
-    public int currentGear;
+    public int clutchMode;
     
     // is fist shaft applied?
-    public bool c1;
-    public bool c2;
-    public bool c3;
-    public bool c5;
-    public bool c4;
+    private bool c1 => (clutchMode & 1) == 1;
+    private bool c2 => ((clutchMode >> 1) & 1) == 1;
+    private bool c3 => ((clutchMode >> 2) & 1) == 1;
+    private bool c4 => ((clutchMode >> 3) & 1) == 1;
+    private bool c5 => ((clutchMode >> 4) & 1) == 1;
+
 
     private float sunSpeed;
     private float wOutput;
     private float c5Ring, c4Ring, c3Ring;
+
+    private PlanetryGear c3PGear, c4PGear, c5PGear;
+
+    void Awake()
+    {
+        c3PGear = new PlanetryGear(1f, 3.1f);
+        c4PGear = new PlanetryGear(1f, 3.1f);
+        c5PGear = new PlanetryGear(1f, 3.1f);
+    }
+
+    void OnDestroy()
+    {
+        Destroy(c3PGear);
+        Destroy(c4PGear);
+        Destroy(c5PGear);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
