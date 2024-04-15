@@ -1532,6 +1532,9 @@ MonoBehaviour:
   c4: 0
   c5: 0
   wOutput: 0
+  wIsPowered: 0
+  sun: 0
+  planet: 0
 --- !u!114 &2085898110
 MonoBehaviour:
   m_ObjectHideFlags: 0

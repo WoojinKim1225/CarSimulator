@@ -31,6 +31,7 @@ public class AutomaticTransmission : MonoBehaviour
 
 
     public float wOutput;
+    public bool wIsPowered;
     public float sun, planet;
 
     public PlanetryGear c3PGear, c4PGear, c5PGear;
@@ -58,52 +59,73 @@ public class AutomaticTransmission : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        sun = c1 ? inputRPM : 0f;
-        planet = c2 ? inputRPM : 0f;
+        c3PGear.Sun.isInput = false;
+        c3PGear.Ring.isInput = false;
+        c3PGear.Planet.isInput = false;
+        c4PGear.Sun.isInput = false;
+        c4PGear.Ring.isInput = false;
+        c4PGear.Planet.isInput = false;
+        c5PGear.Sun.isInput = false;
+        c5PGear.Ring.isInput = false;
+        c5PGear.Planet.isInput = false;
+
+        if (c1) {
+            c4PGear.Sun.isInput = true;
+            c4PGear.Sun.angularVelocity = inputRPM;
+
+            c5PGear.Sun.isInput = true;
+            c5PGear.Sun.angularVelocity = inputRPM;
+        }
+
+        if (c2) {
+            c4PGear.Planet.isInput = true;
+            c4PGear.Planet.angularVelocity = inputRPM;
+
+            c5PGear.Ring.isInput = true;
+            c5PGear.Ring.angularVelocity = inputRPM;
+        }
 
         c3PGear.Sun.isInput = true;
         c3PGear.Sun.angularVelocity = inputRPM;
-        c4PGear.Sun.isInput = true;
-        c4PGear.Sun.angularVelocity = sun;
-        c5PGear.Sun.isInput = true;
-        c5PGear.Sun.angularVelocity = sun;
 
         if (c3) {
             c3PGear.Ring.isInput = true;
             c3PGear.Ring.angularVelocity = 0;
-            c4PGear.Ring.angularVelocity = c3PGear.Planet.angularVelocity;
-        }else {
-            c3PGear.Ring.isInput = false;
         }
-        
-        
+
+        if (c3PGear.Planet.isOutput) {
+            c4PGear.Ring.isInput = true;
+            c4PGear.Ring.angularVelocity = c3PGear.Planet.angularVelocity;
+        }
+
         if (c4) {
             c4PGear.Ring.isInput = true;
             c4PGear.Ring.angularVelocity = 0;
+        }
+
+        if (c4PGear.Planet.isOutput) {
+            c5PGear.Ring.isInput = true;
             c5PGear.Ring.angularVelocity = c4PGear.Planet.angularVelocity;
+        }
+
+        if (c4PGear.Sun.isOutput) {
+            c5PGear.Sun.isInput = true;
+            c5PGear.Sun.angularVelocity = c4PGear.Sun.angularVelocity;
         }
 
         if (c5) {
             c5PGear.Ring.isInput = true;
             c5PGear.Ring.angularVelocity = 0;
-        }
-        if (c2) {
-            c5PGear.Ring.isInput = true;
-            c5PGear.Ring.angularVelocity = planet;
+
+            c4PGear.Planet.isInput = true;
+            c4PGear.Planet.angularVelocity = 0;
         }
 
         c3PGear.OnUpdate();
         c4PGear.OnUpdate();
         c5PGear.OnUpdate();
+
         wOutput = c5PGear.Planet.angularVelocity;
-    }
-
-    public float PlanetryGear_planet(float wSun, float wRing) {
-        return (wSun + 2.1f * wRing) / 3.1f;
-    }
-
-    public float PlanetryGear_sun(float wPlanet, float wRing) {
-        return 3.1f * wPlanet - 2.1f * wRing;
+        wIsPowered = c5PGear.Planet.isOutput;
     }
 }

@@ -42,6 +42,13 @@ public class PlanetryGear
             Sun.isInput = false;
             Sun.isOutput = true;
             Sun.angularVelocity = (Planet.angularVelocity * (Ring.radius + Sun.radius) - Ring.angularVelocity * Ring.radius) / Sun.radius;
+        } else {
+            Sun.isOutput = false;
+            Planet.isOutput = false;
+            Ring.isOutput = false;
+            Sun.angularVelocity = 0f;
+            Planet.angularVelocity = 0f;
+            Ring.angularVelocity = 0f;
         }
 
     }
