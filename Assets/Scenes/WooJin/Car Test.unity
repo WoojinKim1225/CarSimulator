@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 464633900}
   - component: {fileID: 464633901}
+  - component: {fileID: 464633902}
   m_Layer: 0
   m_Name: FL
   m_TagString: Untagged
@@ -169,17 +170,93 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 2085898107}
-  input: {fileID: 2085898111}
+  wheel: {fileID: 464633902}
   restLength: 0.4
   springTravel: 0.1
   k: 40000
   c: 4000
-  wheelRadius: 0.3
+  fc_DryAsphalt:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.907247
+      outSlope: 7.907247
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.095849894
+    - serializedVersion: 3
+      time: 0.18
+      value: 0.84
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.36
+      inSlope: -0.58536583
+      outSlope: -0.33782643
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.063815
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fc_WetAsphalt:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.907247
+      outSlope: 7.7
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.095849894
+    - serializedVersion: 3
+      time: 0.1
+      value: 0.77
+      inSlope: -0.3040426
+      outSlope: -0.3040426
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.055851053
+    - serializedVersion: 3
+      time: 1
+      value: 0.36
+      inSlope: -0.45555553
+      outSlope: -0.33782643
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.063815
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &464633902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464633899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aeaf5ffc24b5aa4eb74de67a7d8e2e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.3
+  w: 0
+  groundVelocityOS: {x: 0, y: 0, z: 0}
   staticFrictionCoefficient: 0.9
-  kineticFrictionCoefficient: 0.8
-  rollingFrictionCoefficient: 0.01
-  staticSideFrictionCoefficient: 1.2
-  kineticSideFrictionCoefficient: 0.7
   fc_DryAsphalt:
     serializedVersion: 2
     m_Curve:
@@ -756,6 +833,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1273726925}
   - component: {fileID: 1273726926}
+  - component: {fileID: 1273726927}
   m_Layer: 0
   m_Name: Wheels
   m_TagString: Untagged
@@ -804,6 +882,24 @@ MonoBehaviour:
   rearTrack: 0
   turnCurvature: 0.1724138
   speed: 0
+--- !u!114 &1273726927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273726924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ff91d1cdccd8446a8e97de702149f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wInput: 0
+  driveTrain: 0
+  FL: {fileID: 0}
+  FR: {fileID: 0}
+  BL: {fileID: 0}
+  BR: {fileID: 0}
 --- !u!1 &1291557340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,6 +1331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1761591008}
   - component: {fileID: 1761591009}
+  - component: {fileID: 1761591010}
   m_Layer: 0
   m_Name: FR
   m_TagString: Untagged
@@ -1271,17 +1368,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 2085898107}
-  input: {fileID: 2085898111}
+  wheel: {fileID: 1761591010}
   restLength: 0.4
   springTravel: 0.1
   k: 40000
   c: 4000
-  wheelRadius: 0.3
-  staticFrictionCoefficient: 0.9
-  kineticFrictionCoefficient: 0.8
-  rollingFrictionCoefficient: 0.01
-  staticSideFrictionCoefficient: 1.2
-  kineticSideFrictionCoefficient: 0.7
   fc_DryAsphalt:
     serializedVersion: 2
     m_Curve: []
@@ -1291,6 +1382,88 @@ MonoBehaviour:
   fc_WetAsphalt:
     serializedVersion: 2
     m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1761591010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761591007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aeaf5ffc24b5aa4eb74de67a7d8e2e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.3
+  w: 0
+  groundVelocityOS: {x: 0, y: 0, z: 0}
+  staticFrictionCoefficient: 0.9
+  fc_DryAsphalt:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.907247
+      outSlope: 7.907247
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.095849894
+    - serializedVersion: 3
+      time: 0.18
+      value: 0.84
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.36
+      inSlope: -0.58536583
+      outSlope: -0.33782643
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.063815
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fc_WetAsphalt:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.907247
+      outSlope: 7.7
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.095849894
+    - serializedVersion: 3
+      time: 0.1
+      value: 0.77
+      inSlope: -0.3040426
+      outSlope: -0.3040426
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.055851053
+    - serializedVersion: 3
+      time: 1
+      value: 0.36
+      inSlope: -0.45555553
+      outSlope: -0.33782643
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.063815
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -1304,6 +1477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2008807664}
   - component: {fileID: 2008807665}
+  - component: {fileID: 2008807666}
   m_Layer: 0
   m_Name: BL
   m_TagString: Untagged
@@ -1340,17 +1514,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 2085898107}
-  input: {fileID: 2085898111}
+  wheel: {fileID: 2008807666}
   restLength: 0.4
   springTravel: 0.1
   k: 40000
   c: 4000
-  wheelRadius: 0.3
-  staticFrictionCoefficient: 0.9
-  kineticFrictionCoefficient: 0.8
-  rollingFrictionCoefficient: 0.01
-  staticSideFrictionCoefficient: 1.2
-  kineticSideFrictionCoefficient: 0.7
   fc_DryAsphalt:
     serializedVersion: 2
     m_Curve: []
@@ -1360,6 +1528,88 @@ MonoBehaviour:
   fc_WetAsphalt:
     serializedVersion: 2
     m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2008807666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008807663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aeaf5ffc24b5aa4eb74de67a7d8e2e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.3
+  w: 0
+  groundVelocityOS: {x: 0, y: 0, z: 0}
+  staticFrictionCoefficient: 0.9
+  fc_DryAsphalt:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.907247
+      outSlope: 7.907247
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.095849894
+    - serializedVersion: 3
+      time: 0.18
+      value: 0.84
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.36
+      inSlope: -0.58536583
+      outSlope: -0.33782643
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.063815
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fc_WetAsphalt:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.907247
+      outSlope: 7.7
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.095849894
+    - serializedVersion: 3
+      time: 0.1
+      value: 0.77
+      inSlope: -0.3040426
+      outSlope: -0.3040426
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.055851053
+    - serializedVersion: 3
+      time: 1
+      value: 0.36
+      inSlope: -0.45555553
+      outSlope: -0.33782643
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.063815
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -1606,6 +1856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2139813474}
   - component: {fileID: 2139813475}
+  - component: {fileID: 2139813476}
   m_Layer: 0
   m_Name: BR
   m_TagString: Untagged
@@ -1642,17 +1893,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 2085898107}
-  input: {fileID: 2085898111}
+  wheel: {fileID: 2139813476}
   restLength: 0.4
   springTravel: 0.1
   k: 40000
   c: 4000
-  wheelRadius: 0.3
-  staticFrictionCoefficient: 0.9
-  kineticFrictionCoefficient: 0.8
-  rollingFrictionCoefficient: 0.01
-  staticSideFrictionCoefficient: 1.2
-  kineticSideFrictionCoefficient: 0.7
   fc_DryAsphalt:
     serializedVersion: 2
     m_Curve: []
@@ -1662,6 +1907,88 @@ MonoBehaviour:
   fc_WetAsphalt:
     serializedVersion: 2
     m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2139813476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139813473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aeaf5ffc24b5aa4eb74de67a7d8e2e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.3
+  w: 0
+  groundVelocityOS: {x: 0, y: 0, z: 0}
+  staticFrictionCoefficient: 0.9
+  fc_DryAsphalt:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.907247
+      outSlope: 7.907247
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.095849894
+    - serializedVersion: 3
+      time: 0.18
+      value: 0.84
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.36
+      inSlope: -0.58536583
+      outSlope: -0.33782643
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.063815
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fc_WetAsphalt:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.907247
+      outSlope: 7.7
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.095849894
+    - serializedVersion: 3
+      time: 0.1
+      value: 0.77
+      inSlope: -0.3040426
+      outSlope: -0.3040426
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.055851053
+    - serializedVersion: 3
+      time: 1
+      value: 0.36
+      inSlope: -0.45555553
+      outSlope: -0.33782643
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.063815
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

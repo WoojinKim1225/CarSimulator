@@ -114,7 +114,7 @@ public class Engine : MonoBehaviour
         float temperatureDiff = (currentTemperature - lastTemperature) / dt;
         float estimateTemp = currentTemperature + temperatureDiff * 3f;
         if (estimateTemp > maxDesireTemp) fanSpeed = (estimateTemp - maxDesireTemp) * 0.3f;
-        else fanSpeed = 0;
+        else fanSpeed *= 1 - Mathf.Exp(-dt * 10f);
     }
 
     void SendToTransmission() {

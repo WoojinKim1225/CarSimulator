@@ -9,7 +9,7 @@ public class CarControl : MonoBehaviour
 {   
     public Rigidbody _rb;
     public PlayerCarInput input;
-    public Wheel wheelFL, wheelFR, wheelBL, wheelBR;
+    public Suspension wheelFL, wheelFR, wheelBL, wheelBR;
 
     [Header("Car Specs")]
     public float wheelBase;

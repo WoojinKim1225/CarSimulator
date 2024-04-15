@@ -159,6 +159,9 @@ public class AutomaticTransmission : MonoBehaviour
     }
 
     float TorqueConverter (float input, float convert, float dt) {
+        if (gear == EGear.Neutral || gear == EGear.Parking) {
+            return convert;
+        }
         return convert + (input - convert) * 0.1f * dt;
     }
 }
