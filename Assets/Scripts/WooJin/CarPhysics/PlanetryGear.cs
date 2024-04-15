@@ -1,23 +1,23 @@
 using UnityEditor;
 using UnityEngine;
 
-public class PlanetryGear : MonoBehaviour
+public class PlanetryGear
 {
     public Gear Sun, Ring, Planet;
 
     public PlanetryGear(float sunRadius, float ringRadius) {
         if (ringRadius <= 0) {
-            Debug.LogError(this.name + "'s ring gear radius must be positive!");
+            Debug.LogError("ring gear radius must be positive!");
             return;
         }
 
         if (sunRadius <= 0) {
-            Debug.LogError(this.name + "'s sun gear radius must be positive!");
+            Debug.LogError("sun gear radius must be positive!");
             return;
         }
 
         if (ringRadius <= sunRadius) {
-            Debug.LogError(this.name + "'s ring gear radius must be bigger than the sun gear radius!");
+            Debug.LogError("ring gear radius must be bigger than the sun gear radius!");
             return;
         }
         Sun = new Gear(sunRadius);
@@ -25,17 +25,22 @@ public class PlanetryGear : MonoBehaviour
         Planet = new Gear(ringRadius - sunRadius);
     }
 
-    void Update()
+    public void OnUpdate()
     {
         //Ring.angularVelocity * Ring.radius = Planet.angularVelocity * (Ring.radius + Sun.radius) - Sun.angularVelocity * Sun.radius;
-
-        if (Sun.isPowered && Planet.isPowered && !Ring.isPowered) {
+        if (Sun.isInput && Planet.isInput) {
+            Ring.isInput = false;
+            Ring.isOutput = true;
             Ring.angularVelocity = (Planet.angularVelocity * (Ring.radius + Sun.radius) - Sun.angularVelocity * Sun.radius) / Ring.radius;
         }
-        else if (Sun.isPowered && !Planet.isPowered && Ring.isPowered) {
+        else if (Sun.isInput && Ring.isInput) {
+            Planet.isInput = false;
+            Planet.isOutput = true;
             Planet.angularVelocity = (Ring.angularVelocity * Ring.radius + Sun.angularVelocity * Sun.radius) / (Ring.radius + Sun.radius);
         }
-        else if (!Sun.isPowered && Planet.isPowered && Ring.isPowered) {
+        else if (Planet.isInput && Ring.isInput) {
+            Sun.isInput = false;
+            Sun.isOutput = true;
             Sun.angularVelocity = (Planet.angularVelocity * (Ring.radius + Sun.radius) - Ring.angularVelocity * Ring.radius) / Sun.radius;
         }
 

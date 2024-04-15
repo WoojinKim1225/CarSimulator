@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -182,13 +182,67 @@ MonoBehaviour:
   kineticSideFrictionCoefficient: 0.7
   fc_DryAsphalt:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.907247
+      outSlope: 7.907247
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.095849894
+    - serializedVersion: 3
+      time: 0.18
+      value: 0.84
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.36
+      inSlope: -0.58536583
+      outSlope: -0.33782643
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.063815
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   fc_WetAsphalt:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.907247
+      outSlope: 7.7
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.095849894
+    - serializedVersion: 3
+      time: 0.1
+      value: 0.77
+      inSlope: -0.3040426
+      outSlope: -0.3040426
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.055851053
+    - serializedVersion: 3
+      time: 1
+      value: 0.36
+      inSlope: -0.45555553
+      outSlope: -0.33782643
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.063815
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -1469,14 +1523,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b4640881cedd74590edcfad9cc0426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wInput: 0
+  inputRPM: 0
   gear: 0
-  currentGear: 0
+  clutchMode: 0
   c1: 0
   c2: 0
   c3: 0
-  c5: 0
   c4: 0
+  c5: 0
+  wOutput: 0
 --- !u!114 &2085898110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1493,32 +1548,17 @@ MonoBehaviour:
   _throttlePosition: 0
   carSpeed: 0
   fanSpeed: 0
-  humidity: 0
   state: 0
-  PowerCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   TorqueCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  FuelConsumptionMap:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  maxRPM: 7000
-  Temp: 0
   transmission: {fileID: 2085898109}
   currentTorque: 0
   currentPower: 0
-  currentRPM: 0
+  currentEngineRPM: 0
   currentTemperature: 0
 --- !u!114 &2085898111
 MonoBehaviour:

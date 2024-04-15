@@ -15,19 +15,25 @@ public class AutomaticTransmission : MonoBehaviour
     public EGear gear;
     public int clutchMode;
     
-    // is fist shaft applied?
+    /*
     private bool c1 => (clutchMode & 1) == 1;
     private bool c2 => ((clutchMode >> 1) & 1) == 1;
     private bool c3 => ((clutchMode >> 2) & 1) == 1;
     private bool c4 => ((clutchMode >> 3) & 1) == 1;
     private bool c5 => ((clutchMode >> 4) & 1) == 1;
+    */
+
+    public bool c1;
+    public bool c2;
+    public bool c3;
+    public bool c4;
+    public bool c5;
 
 
-    private float sunSpeed;
-    private float wOutput;
-    private float c5Ring, c4Ring, c3Ring;
+    public float wOutput;
+    public float sun, planet;
 
-    private PlanetryGear c3PGear, c4PGear, c5PGear;
+    public PlanetryGear c3PGear, c4PGear, c5PGear;
 
     void Awake()
     {
@@ -38,9 +44,9 @@ public class AutomaticTransmission : MonoBehaviour
 
     void OnDestroy()
     {
-        Destroy(c3PGear);
-        Destroy(c4PGear);
-        Destroy(c5PGear);
+        c3PGear = null;
+        c4PGear = null;
+        c5PGear = null;
     }
 
     // Start is called before the first frame update
@@ -53,42 +59,44 @@ public class AutomaticTransmission : MonoBehaviour
     void Update()
     {
         
-        /*
-        float ringSpeed;
-        if (c1) {
-            if (c2) ringSpeed = wInput;
-            else ringSpeed = PlanetryGear_planet(wInput, 0f);
-            if (c5) {
-                ringSpeed = PlanetryGear_planet(wInput, ringSpeed);
-            }
-        } else {
-            if (c4) {
+        sun = c1 ? inputRPM : 0f;
+        planet = c2 ? inputRPM : 0f;
 
-            }
+        c3PGear.Sun.isInput = true;
+        c3PGear.Sun.angularVelocity = inputRPM;
+        c4PGear.Sun.isInput = true;
+        c4PGear.Sun.angularVelocity = sun;
+        c5PGear.Sun.isInput = true;
+        c5PGear.Sun.angularVelocity = sun;
+
+        if (c3) {
+            c3PGear.Ring.isInput = true;
+            c3PGear.Ring.angularVelocity = 0;
+            c4PGear.Ring.angularVelocity = c3PGear.Planet.angularVelocity;
+        }else {
+            c3PGear.Ring.isInput = false;
+        }
+        
+        
+        if (c4) {
+            c4PGear.Ring.isInput = true;
+            c4PGear.Ring.angularVelocity = 0;
+            c5PGear.Ring.angularVelocity = c4PGear.Planet.angularVelocity;
         }
 
-        // 1st gear: 10001
-        // 2nd gear: 10010
-        // 3rd gear: 10100
-        // 4th gear: 11000
-        // 5th gear: 01100
-        // 6th gear: 01010
-        // rev gear: 00101
+        if (c5) {
+            c5PGear.Ring.isInput = true;
+            c5PGear.Ring.angularVelocity = 0;
+        }
+        if (c2) {
+            c5PGear.Ring.isInput = true;
+            c5PGear.Ring.angularVelocity = planet;
+        }
 
-        float c3Sun = wInput;
-        sunSpeed = c1 ? wInput : 0f;
-
-        if (c5) c5Ring = 0;
-        if (c2) c5Ring = wInput;
-        
-        if (c4) c4Ring = 0;// ringSpeed = PlanetryGear_planet(sunSpeed, 0f);
-        if (c3) c3Ring = 0;
-
-
-        c4Ring = PlanetryGear_planet(c3Sun, c3Ring);
-        wOutput = PlanetryGear_planet(sunSpeed, c5Ring);
-        */
-
+        c3PGear.OnUpdate();
+        c4PGear.OnUpdate();
+        c5PGear.OnUpdate();
+        wOutput = c5PGear.Planet.angularVelocity;
     }
 
     public float PlanetryGear_planet(float wSun, float wRing) {

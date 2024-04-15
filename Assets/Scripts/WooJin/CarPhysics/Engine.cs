@@ -33,12 +33,14 @@ public class Engine : MonoBehaviour
     
     [SerializeField] private AnimationCurve TorqueCurve;
 
-    [SerializeField] private float maxEngineRPM = 7000;
-    [SerializeField] private float maxFanRPM = 3000;
+    private const float maxEngineRPM = 7000;
+    private const float maxFanRPM = 3000;
 
-    [SerializeField] private float minDesireTemp = 90f;
-    [SerializeField] private float maxDesireTemp = 104f;
-    //public float Temp;
+    private const float minDesireTemp = 90f;
+    private const float maxDesireTemp = 104f;
+    private const float engineSpecificHeat = 161460f;
+
+    private const float shaftInertia = 1320f;
 
     [Header("Outputs")]
 
@@ -50,8 +52,6 @@ public class Engine : MonoBehaviour
 
     public float currentTemperature; // [°C]
 
-    private float angularVelocityOutput => currentEngineRPM * RPM2RPS;
-    // Start is called before the first frame update
     void Start()
     {
         air = Air.Instance;
@@ -59,7 +59,6 @@ public class Engine : MonoBehaviour
         carBody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (state == EEngineState.Start) {
@@ -76,12 +75,11 @@ public class Engine : MonoBehaviour
 
         EvaluateTorque();
 
-        ModifyEngineRPM();
+        ModifyEngineRPM(Time.fixedDeltaTime);
 
         float h = 2f * Mathf.Pow(Mathf.Abs(airSpeed * 0.0005f), 0.8f) * Mathf.Pow(Mathf.Clamp01(air.Humidity), 0.4f); // [W/(m^2 * K)]
-
         
-        ModifyTemperature(h);
+        ModifyTemperature(h, Time.fixedDeltaTime);
         
     }
 
@@ -90,19 +88,24 @@ public class Engine : MonoBehaviour
         currentTorque = TorqueCurve.Evaluate(currentEngineRPM * 0.01f) * 100;
     }
 
-    private void ModifyEngineRPM() {
+    private void ModifyEngineRPM(float dt) {
+        currentEngineRPM += currentTorque / shaftInertia * dt;
         if (state == EEngineState.On && currentEngineRPM > 0) {
-            currentEngineRPM += 0.3f * _throttlePosition * (maxEngineRPM - currentEngineRPM) * Time.fixedDeltaTime;
-            currentEngineRPM -= 0.1f * Time.fixedDeltaTime;
+            // Add rpm based on throttle amount
+            currentEngineRPM += 0.3f * _throttlePosition * (maxEngineRPM - currentEngineRPM) * dt;
+            // Loss of rpm due to friction and resistance
+            currentEngineRPM -= 0.1f * dt;
         }
     }
 
-    private void ModifyTemperature(float h) {
-        currentTemperature += 80f * Mathf.Pow(currentEngineRPM, 1.1f) / 161460f * Time.deltaTime;
-        currentTemperature -= h * (currentTemperature - air.Temperature) * Time.deltaTime;
+    private void ModifyTemperature(float h, float dt) {
+        // Temperature rising due to engine rpm
+        currentTemperature += 80f * Mathf.Pow(currentEngineRPM, 1.1f) / engineSpecificHeat * dt;
+        // Radiator cooling engine
+        currentTemperature -= h * (currentTemperature - air.Temperature) * dt;
     }
 
     void SendToTransmission() {
-        transmission.inputRPM = angularVelocityOutput;
+        //transmission.inputRPM = currentEngineRPM;
     }
 }
