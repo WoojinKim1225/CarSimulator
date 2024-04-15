@@ -131,12 +131,12 @@ public class Wheel : MonoBehaviour
         if (input.GasUserInput > 0)
         {
 
-            Fx = input.GasUserInput * normalForce;
-            wheelRotationSpeed += input.GasUserInput * Time.fixedDeltaTime;
+            //Fx = input.GasUserInput * normalForce;
+            //wheelRotationSpeed += input.GasUserInput * Time.fixedDeltaTime;
         }
         else
         {
-            Fx = 0;
+            //Fx = 0;
         }
     }
 }

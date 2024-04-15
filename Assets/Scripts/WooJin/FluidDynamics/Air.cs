@@ -4,6 +4,7 @@ using UnityEngine;
 public class Air : MonoBehaviour
 {
     public float Temperature; // [°C]
+    [Range(0,1)]
     public float Humidity; // [%]
     public bool isFreeze => Temperature <= 0f;
     public float Precipitation; // [mm/H]
