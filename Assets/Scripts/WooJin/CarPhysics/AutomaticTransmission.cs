@@ -28,7 +28,6 @@ public class AutomaticTransmission : MonoBehaviour
     };
     private int clutchMode => numberToMode.GetValueOrDefault(clutchNumber);
     
-    
     private bool c1 => (clutchMode & 1) == 1;
     private bool c2 => ((clutchMode >> 1) & 1) == 1;
     private bool c3 => ((clutchMode >> 2) & 1) == 1;
@@ -37,6 +36,9 @@ public class AutomaticTransmission : MonoBehaviour
 
 
     public float wOutput;
+    public Differential differential;
+
+
     public bool wIsPowered;
 
     private PlanetryGear c3PGear, c4PGear, c5PGear;
@@ -136,7 +138,8 @@ public class AutomaticTransmission : MonoBehaviour
 
         wOutput = Mathf.Lerp(c5PGear.Planet.angularVelocity * torqueConvertedRPM, wOutput, Mathf.Exp(-Time.deltaTime * 20f));
         wIsPowered = c5PGear.Planet.isOutput;
-    }
+        differential.wInput = wOutput;
+        }
 
     void GearToClutchMode() {
         switch (gear)

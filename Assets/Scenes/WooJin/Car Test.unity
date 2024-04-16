@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c1c5e6bd0bb8c4aae62250526ff425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Temperature: 0
+  Temperature: 20
   Humidity: 0
   Precipitation: 0
 --- !u!4 &638705506
@@ -895,11 +895,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wInput: 0
-  driveTrain: 0
-  FL: {fileID: 0}
-  FR: {fileID: 0}
-  BL: {fileID: 0}
-  BR: {fileID: 0}
+  driveTrain: 1
+  FL: {fileID: 464633902}
+  FR: {fileID: 1761591010}
+  BL: {fileID: 2008807666}
+  BR: {fileID: 2139813476}
 --- !u!1 &1291557340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1778,6 +1778,7 @@ MonoBehaviour:
   gear: 0
   clutchNumber: 0
   wOutput: 0
+  differential: {fileID: 1273726927}
   wIsPowered: 0
 --- !u!114 &2085898110
 MonoBehaviour:
