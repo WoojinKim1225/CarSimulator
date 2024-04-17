@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2b1aaafc31655024394d83dc00911c1c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.054
+      value: -0.054000005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b1aaafc31655024394d83dc00911c1c,
         type: 3}
@@ -100,9 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fa88ed7bfd7094383b842b4468d351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button1: {fileID: -6966658035598272013, guid: c348712bda248c246b8c49b3db54643f,
+  button1: {fileID: -7465112631165670877, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
-  button2: {fileID: 571838828895165463, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  button2: {fileID: -1629073640097209456, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
   button3: {fileID: 0}
   pinch: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   grab: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}

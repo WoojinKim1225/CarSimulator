@@ -2,16 +2,31 @@ Shader "Custom/HandShader"
 {
     Properties
     {
-        
+        [IntRange] _StencilID ("Stencil ID", Range(0, 255)) = 0
+        [Enum(UnityEngine.Rendering.CompareFunction)] _StencilComp ("Stencil Comparison", Int) = 3
+        [Enum(UnityEngine.Rendering.StencilOp)] _StencilOp ("Stencil Pass", Int) = 3
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" "RenderPipeline" = "UniversalPipeline"}
+        Tags {"RenderType"="Transparent" "Queue"="Transparent" "RenderPipeline" = "UniversalPipeline"}
+
+        Blend SrcAlpha OneMinusSrcAlpha
+        ZWrite Off
+
+        Stencil
+        {
+            Ref [_StencilID]
+            Comp [_StencilComp]
+            Pass [_StencilOp]
+            Fail Keep
+
+        }
         
         Pass {
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
@@ -30,7 +45,7 @@ Shader "Custom/HandShader"
             };
 
             half4 frag() : SV_TARGET {
-                return half4(0.5, 0, 0, 1);
+                return half4(0.5, 0, 0, .5);
             }
             ENDHLSL
         }

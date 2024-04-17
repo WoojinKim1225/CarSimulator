@@ -24,6 +24,9 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _StencilComp: 3
+    - _StencilID: 0
+    - _StencilOp: 3
     m_Colors: []
   m_BuildTextureStacks: []

@@ -16,12 +16,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: deed68a7fd2e9234899298cf80fae7ad,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.1176
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: deed68a7fd2e9234899298cf80fae7ad,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.054
+      value: -0.054000005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: deed68a7fd2e9234899298cf80fae7ad,
         type: 3}
@@ -100,9 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fa88ed7bfd7094383b842b4468d351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button1: {fileID: -1642870967365732093, guid: c348712bda248c246b8c49b3db54643f,
+  button1: {fileID: -3943014399770863700, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
-  button2: {fileID: 5407218138625865932, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  button2: {fileID: -6886246618706370728, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
   button3: {fileID: 0}
   pinch: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   grab: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f, type: 3}
