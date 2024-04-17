@@ -36,15 +36,18 @@ Shader "Custom/HandShader"
 
             struct Varyings {
                 float4 positionHCS : SV_POSITION;
+                float4 positionOS : TEXCOORD0;
             };
 
             Varyings vert(Attributes i) {
                 Varyings o;
                 o.positionHCS = TransformObjectToHClip(i.positionOS.xyz);
+                o.positionOS = i.positionOS;
                 return o;
             };
 
-            half4 frag() : SV_TARGET {
+            half4 frag(Varyings vert) : SV_TARGET {
+                return vert.positionOS.z;
                 return half4(0.5, 0, 0, .5);
             }
             ENDHLSL

@@ -25,8 +25,8 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _StencilComp: 3
+    - _StencilComp: 0
     - _StencilID: 0
-    - _StencilOp: 3
+    - _StencilOp: 2
     m_Colors: []
   m_BuildTextureStacks: []
