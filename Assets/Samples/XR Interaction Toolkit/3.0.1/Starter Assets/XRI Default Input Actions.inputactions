@@ -740,6 +740,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Activate Touch",
+                    "type": "Button",
+                    "id": "fc7be731-9657-4814-b01e-645795acc45e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "UI Press",
                     "type": "Button",
                     "id": "7e1eced7-c774-4fe5-be8f-d8711f646d9e",
@@ -824,6 +833,15 @@
                     "name": "Secondary Button",
                     "type": "Button",
                     "id": "3d531cc2-1c10-4d67-a039-48f2cee28aed",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThumbTouch",
+                    "type": "Button",
+                    "id": "51fcec08-26cf-444d-bb31-ef09bb6cc5e9",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1026,6 +1044,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Secondary Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11c7eb39-3910-417d-86d6-373797c19125",
+                    "path": "<XRController>{LeftHand}/triggerTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Activate Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e4e76f24-f4ac-428f-87f6-e230d7e75f85",
+                    "path": "<XRController>{LeftHand}/primaryTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThumbTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43a1cf96-1906-4619-9c21-d01234e480d1",
+                    "path": "<XRController>{LeftHand}/secondaryTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThumbTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a318050a-aefd-47d5-88b0-cccf2a210662",
+                    "path": "<XRController>{LeftHand}/thumbrestTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThumbTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1576,6 +1638,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Activate Touch",
+                    "type": "Button",
+                    "id": "bc8d8c49-ebcf-41e0-86ea-5752251e10f5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "UI Press",
                     "type": "Button",
                     "id": "65174b45-c2ee-4f90-93bb-fb4084eaaab3",
@@ -1664,6 +1735,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ThumbTouch",
+                    "type": "Button",
+                    "id": "54c190c7-60e0-41d4-b441-5174c7485a5b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1686,6 +1766,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95e58867-edd3-42f8-bde2-dc90128b826e",
+                    "path": "<XRController>{RightHand}/primaryTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThumbTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3bdd2468-764e-485a-99ee-9456cd91c43f",
+                    "path": "<XRController>{RightHand}/secondaryTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThumbTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3046d77b-2648-40a4-bb79-78cbe8c47109",
+                    "path": "<XRController>{RightHand}/thumbrestTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThumbTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1864,6 +1977,17 @@
                     "action": "Secondary Button",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fbaf5021-46d5-4fb4-83a2-d5d59d17035d",
+                    "path": "<XRController>{RightHand}/triggerTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Activate Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1963,7 +2087,7 @@
                 {
                     "name": "",
                     "id": "022046aa-be71-4288-859d-6dd42844f6e6",
-                    "path": "<XRController>{RightHand}/{Primary2DAxis}",
+                    "path": "<XRController>{RightHand}/primary2DAxis",
                     "interactions": "",
                     "processors": "StickDeadzone",
                     "groups": "",
@@ -2021,7 +2145,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "448b396b-0885-4543-ac5a-8b3405da6791",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
