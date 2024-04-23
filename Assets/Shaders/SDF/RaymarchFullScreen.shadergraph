@@ -675,20 +675,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "c56001305a774a21814ff036de1e5f39"
-                },
-                "m_SlotId": 3
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "68c9b01b747445c3861315559ca85336"
-                },
-                "m_SlotId": 1
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "db537e29da754011acefa7ae8c48243c"
                 },
                 "m_SlotId": 0
@@ -2997,6 +2983,9 @@
         },
         {
             "m_Id": "b66ce0a9730d4f69a814935960d0aaaa"
+        },
+        {
+            "m_Id": "b9fc19b306a04204b7f1f7c144c6ad48"
         }
     ],
     "synonyms": [
@@ -4287,6 +4276,21 @@
         "x": 0.0,
         "y": 1.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "b9fc19b306a04204b7f1f7c144c6ad48",
+    "m_Id": 17,
+    "m_DisplayName": "New",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "New",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {

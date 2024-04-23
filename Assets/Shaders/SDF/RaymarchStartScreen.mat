@@ -43,9 +43,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _SkyOpacity: 1
-    - _minDist: 0
+    - _minDist: 0.24
     m_Colors:
-    - _BG: {r: 1, g: 1, b: 1, a: 1}
+    - _BG: {r: 0.17610055, g: 0.17610055, b: 0.17610055, a: 1}
     - _EquatorColor: {r: 0.26352787, g: 0.8867924, b: 0.6124411, a: 1}
     - _FG: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
     - _SkyColor: {r: 0.22054106, g: 0.39718848, b: 0.7924528, a: 1}

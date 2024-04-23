@@ -12,6 +12,7 @@ float4 GetDist(float3 p) {
     float4 d;
     d.xyz = 1;
     d.w = p.y;
+    
     return d;
 }
 
@@ -23,8 +24,9 @@ float3 GetNormal(float3 p) {
     return normalize(n);
 }
 
-void Raymarch_half(half3 ro, half3 rd, half3 rdMid, half depth, half minDepth, out half3 p, out half3 n, out half3 c, out half a) {
+void Raymarch_half(half3 ro, half3 rd, half3 rdMid, half depth, half minDepth, out half3 p, out half3 n, out half3 c, out half a, out half d) {
     half dO = 0;
+    half realDepth = depth / dot(rd, rdMid);
     half4 dS;
     for (int i = 0; i < MAX_STEPS; i++) {
         if (dO > MAX_DIST) {
@@ -38,19 +40,51 @@ void Raymarch_half(half3 ro, half3 rd, half3 rdMid, half depth, half minDepth, o
         }
         dO += dS.w;
     }
+    /*
     //if (dO < MAX_DIST && dO > minDist) {
-    if (dO < MAX_DIST && dO * dot(rd, rdMid) < depth || minDepth < depth) {
+    if (dO < MAX_DIST && (dO < realDepth || minDepth < realDepth)) {
+        // camera seeing ground plane
         p.xyz = ro + rd * dO;
+        //a = saturate((depth / dot(rd, rdMid) - minDepth) * 10);
         a = 1;
         n = GetNormal(p);
         c = dS.xyz;
+        d = dO * dot(rd, rdMid);
+
     } else {
+        // camera seeing object
         p = half3(0,0,0);
         a = 0;
         c = half3(1,1,1);
         n = half3(0,0,0);
+        d = depth;
     }
-    //return dO;
+    */
+
+    if (dO > realDepth && minDepth > realDepth) {
+        // camera seeing object
+        p = half3(0,0,0);
+        a = 0;
+        c = half3(1,1,1);
+        n = half3(0,0,0);
+        d = depth;
+    } else if (dO < MAX_DIST) {
+        // camera seeing SDF
+        p.xyz = ro + rd * dO;
+        //a = saturate((depth / dot(rd, rdMid) - minDepth) * 10);
+        a = 1;
+        n = GetNormal(p);
+        c = dS.xyz;
+        d = dO * dot(rd, rdMid);
+    } else {
+        // camera seeing void
+        p = ro + rd * MAX_DIST;
+        a = 1;
+        c = -rd;
+        n = -rd;
+        d = depth;
+    }
+
 }
 
 
