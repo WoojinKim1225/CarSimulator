@@ -87,5 +87,39 @@ void Raymarch_half(half3 ro, half3 rd, half3 rdMid, half depth, half minDepth, o
 
 }
 
+void InfinitePlane_half(half3 ro, half3 rd, half3 rdMid, half depth, out half3 p, out half3 n, out half3 c, out half a) {
+    half dO = 0;
+    half realDepth = depth / dot(rd, rdMid);
+    half4 dS;
+    for (int i = 0; i < MAX_STEPS; i++) {
+        if (dO > MAX_DIST) {
+            break;
+        }
+        half3 p = ro + dO * rd;
+        dS = GetDist(p);
+        if (dS.w < SURF_DIST) {
+            c = dS.xyz;
+            break;
+        }
+        dO += dS.w;
+    }
+
+    if (dO < MAX_DIST && dO < realDepth) {
+
+        // camera seeing SDF
+        p.xyz = ro + rd * dO;
+        a = 1;
+        n = GetNormal(p);
+        c = dS.xyz;
+    } else {
+        // camera seeing object
+        p = half3(0,0,0);
+        a = 0;
+        c = half3(1,1,1);
+        n = half3(0,0,0);
+    }
+
+}
+
 
 #endif

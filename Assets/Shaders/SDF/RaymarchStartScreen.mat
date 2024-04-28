@@ -43,7 +43,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _SkyOpacity: 1
-    - _minDist: 0.24
+    - _minDist: 1.28
     m_Colors:
     - _BG: {r: 0.17610055, g: 0.17610055, b: 0.17610055, a: 1}
     - _EquatorColor: {r: 0.26352787, g: 0.8867924, b: 0.6124411, a: 1}

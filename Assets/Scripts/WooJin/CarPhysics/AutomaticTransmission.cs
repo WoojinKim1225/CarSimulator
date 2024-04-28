@@ -11,6 +11,8 @@ public enum EGear
 }
 public class AutomaticTransmission : MonoBehaviour
 {
+    private Rigidbody carBody;
+    public float carSpeed;
     public float inputRPM;
     public float torqueConvertedRPM;
 
@@ -48,6 +50,8 @@ public class AutomaticTransmission : MonoBehaviour
         c3PGear = new PlanetryGear(1f, 3.1f);
         c4PGear = new PlanetryGear(1f, 3.1f);
         c5PGear = new PlanetryGear(1f, 3.1f);
+
+        carBody = GetComponent<Rigidbody>();
     }
 
     void OnDestroy()
@@ -139,7 +143,12 @@ public class AutomaticTransmission : MonoBehaviour
         wOutput = Mathf.Lerp(c5PGear.Planet.angularVelocity * torqueConvertedRPM, wOutput, Mathf.Exp(-Time.deltaTime * 20f));
         wIsPowered = c5PGear.Planet.isOutput;
         differential.wInput = wOutput;
-        }
+    }
+
+    void FixedUpdate()
+    {
+        carSpeed = Vector3.Dot(transform.forward, carBody.velocity);
+    }
 
     void GearToClutchMode() {
         switch (gear)
