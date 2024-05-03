@@ -6,74 +6,80 @@ using UnityEngine;
 
 public class Suspension : MonoBehaviour
 {
-    [SerializeField] private Rigidbody _rb;
+    public Rigidbody rb;
     [SerializeField] private Wheel wheel;
-    //[SerializeField] private PlayerCarInput input;
+    [SerializeField] private float restLength = 0.4f;
+    [SerializeField] private float springTravel = 0.1f;
 
-    public float restLength;
-    public float springTravel;
+    [SerializeField] private float k = 40000;
+    [SerializeField] private float c = 4000;
 
-    public float k;
-    public float c;
+    private float _minLength, _maxLength;
+    private float _springLength;
+    private float _springForceSize;
 
-    private float minLength;
-    private float maxLength;
-    private float springLength;
-    private float springForceSize;
-
-    private Vector3 suspensionForceWS => springForceSize * transform.up;
-
+    //private Vector3 suspensionForceWS => _springForceSize * transform.up;
     private float wheelRadius => wheel.radius;
 
-    public AnimationCurve fc_DryAsphalt, fc_WetAsphalt;
-
-    private Vector3 sphereCastStart;
+    private Vector3 sphereCastStartPositionWS;
     private Vector3 wheelCenter;
 
     private float xBefore;
     private Transform wheelMesh;
-    private float normalForce;
+
+
+    public Vector3 suspensionForceWS, weightForceWS;
+    public Vector3 hitPositionWS, hitNormalWS;
+
+    private Vector3 Vector3NaN = new Vector3(float.NaN, float.NaN, float.NaN);
 
     void Awake()
     {
-        _rb = GetComponentInParent<Rigidbody>();
+        rb = GetComponentInParent<Rigidbody>();
 
-        minLength = restLength - springTravel;
-        maxLength = restLength + springTravel;
+        _minLength = restLength - springTravel;
+        _maxLength = restLength + springTravel;
         wheelMesh = transform.GetChild(0);
     }
 
     private void Update() {
-        Debug.DrawRay(sphereCastStart, -transform.up * (springLength + wheelRadius), Color.green);
+        Debug.DrawRay(sphereCastStartPositionWS, -transform.up * (_springLength + wheelRadius), Color.green);
     }
 
     private void FixedUpdate() {
-        sphereCastStart = transform.position + transform.up * minLength;
+        sphereCastStartPositionWS = transform.position + transform.up * _minLength;
         
-        if (Physics.SphereCast(sphereCastStart, wheelRadius, -transform.up, out RaycastHit hit, maxLength)) {
+        if (Physics.SphereCast(sphereCastStartPositionWS, wheelRadius, -transform.up, out RaycastHit hit, _maxLength)) {
             wheelCenter = hit.point + hit.normal * wheelRadius; // 바퀴 축 위치
             wheelMesh.position = wheelCenter;
 
-            springLength = Vector3.Distance(sphereCastStart, wheelCenter); // 스프링의 길이
+            _springLength = Vector3.Distance(sphereCastStartPositionWS, wheelCenter); // 스프링의 길이
 
-            float x = restLength - springLength; // 스프링 변위
+            float x = restLength - _springLength; // 스프링 변위
             float v = (x - xBefore) / Time.fixedDeltaTime; // 스프링 속도
-            springForceSize = k * x + c * v; 
+            _springForceSize = k * x + c * v;
 
-            normalForce = math.dot(suspensionForceWS, hit.normal);
-            Vector3 normalForceWS = normalForce * hit.normal; // 수직항력
+            suspensionForceWS = _springForceSize * transform.up; 
+            weightForceWS = rb.mass * Physics.gravity * 0.25f;
+            hitPositionWS = hit.point;
+            hitNormalWS = hit.normal;
             
-            _rb.AddForceAtPosition(normalForceWS, transform.position);
+            Debug.DrawRay(hit.point, suspensionForceWS * 0.0000001f, Color.green);
+            Debug.DrawRay(hit.point, weightForceWS * 0.0001f, Color.red);
             
-            wheel.groundVelocityOS = transform.InverseTransformDirection(_rb.GetPointVelocity(hit.point)); // 접촉면의 속도
+            //_rb.AddForceAtPosition(normalForceWS, transform.position);
+            
+            wheel.groundVelocityOS = transform.InverseTransformDirection(rb.GetPointVelocity(hit.point)); // 접촉면의 속도
 
-            Debug.DrawRay(hit.point, normalForceWS * 0.001f, Color.green);
             
             xBefore = x;
         } else {
-            wheelCenter = sphereCastStart - transform.up * maxLength;
-            springLength = maxLength;
+            wheelCenter = sphereCastStartPositionWS - transform.up * _maxLength;
+            _springLength = _maxLength;
             wheelMesh.position = wheelCenter;
+            suspensionForceWS = Vector3.zero;
+            hitPositionWS = Vector3NaN;
+            hitNormalWS = Vector3NaN;
         }
     }
 

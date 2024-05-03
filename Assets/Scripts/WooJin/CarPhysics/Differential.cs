@@ -13,13 +13,13 @@ public class Differential : MonoBehaviour
 
     private void Update() {
         if (((int)driveTrain & 1) == 1) {
-            FL.w = wInput;
-            FR.w = wInput;
+            FL.angularVelocity = wInput;
+            FR.angularVelocity = wInput;
         }
 
         if ((((int)driveTrain >> 1) & 1) == 1) {
-            BL.w = wInput;
-            BR.w = wInput;
+            BL.angularVelocity = wInput;
+            BR.angularVelocity = wInput;
         }
     }
 }
