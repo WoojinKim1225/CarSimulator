@@ -30,10 +30,12 @@ public class Suspension : MonoBehaviour
     private float xBefore;
     private Transform wheelMesh;
     private float normalForce;
+    private Vector3 normalForceWS;
 
     void Awake()
     {
         _rb = GetComponentInParent<Rigidbody>();
+        wheel.rb = _rb;
 
         minLength = restLength - springTravel;
         maxLength = restLength + springTravel;
@@ -58,7 +60,7 @@ public class Suspension : MonoBehaviour
             springForceSize = k * x + c * v; 
 
             normalForce = math.dot(suspensionForceWS, hit.normal);
-            Vector3 normalForceWS = normalForce * hit.normal; // 수직항력
+            normalForceWS = normalForce * hit.normal; // 수직항력
             
             _rb.AddForceAtPosition(normalForceWS, transform.position);
             
@@ -66,6 +68,8 @@ public class Suspension : MonoBehaviour
             wheel.groundVelocityWS = _rb.GetPointVelocity(hit.point);
 
             Debug.DrawRay(hit.point, normalForceWS * 0.001f, Color.green);
+            wheel.normalForceWS = normalForceWS;
+            wheel.normalForce = normalForce;
             
             xBefore = x;
             wheel.hitPosition = hit.point;
@@ -74,6 +78,8 @@ public class Suspension : MonoBehaviour
             wheelCenter = sphereCastStart - transform.up * maxLength;
             springLength = maxLength;
             wheelMesh.position = wheelCenter;
+            wheel.normalForceWS = Vector3.zero;
+            wheel.normalForce = 0f;
             wheel.hitPosition = Vector3.zero;
             wheel.hitNormal = Vector3.zero;
         }
