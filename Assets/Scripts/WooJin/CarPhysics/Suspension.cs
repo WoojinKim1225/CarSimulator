@@ -8,7 +8,6 @@ public class Suspension : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private Wheel wheel;
-    //[SerializeField] private PlayerCarInput input;
 
     public float restLength;
     public float springTravel;
@@ -24,8 +23,6 @@ public class Suspension : MonoBehaviour
     private Vector3 suspensionForceWS => springForceSize * transform.up;
 
     private float wheelRadius => wheel.radius;
-
-    public AnimationCurve fc_DryAsphalt, fc_WetAsphalt;
 
     private Vector3 sphereCastStart;
     private Vector3 wheelCenter;
@@ -66,14 +63,19 @@ public class Suspension : MonoBehaviour
             _rb.AddForceAtPosition(normalForceWS, transform.position);
             
             wheel.groundVelocityOS = transform.InverseTransformDirection(_rb.GetPointVelocity(hit.point)); // 접촉면의 속도
+            wheel.groundVelocityWS = _rb.GetPointVelocity(hit.point);
 
             Debug.DrawRay(hit.point, normalForceWS * 0.001f, Color.green);
             
             xBefore = x;
+            wheel.hitPosition = hit.point;
+            wheel.hitNormal = hit.normal;
         } else {
             wheelCenter = sphereCastStart - transform.up * maxLength;
             springLength = maxLength;
             wheelMesh.position = wheelCenter;
+            wheel.hitPosition = Vector3.zero;
+            wheel.hitNormal = Vector3.zero;
         }
     }
 

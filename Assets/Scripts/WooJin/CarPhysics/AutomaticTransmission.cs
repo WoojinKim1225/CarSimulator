@@ -142,7 +142,7 @@ public class AutomaticTransmission : MonoBehaviour
 
         wOutput = Mathf.Lerp(c5PGear.Planet.angularVelocity * torqueConvertedRPM, wOutput, Mathf.Exp(-Time.deltaTime * 20f));
         wIsPowered = c5PGear.Planet.isOutput;
-        differential.wInput = wOutput;
+        differential.rpmInput = wOutput;
     }
 
     void FixedUpdate()
