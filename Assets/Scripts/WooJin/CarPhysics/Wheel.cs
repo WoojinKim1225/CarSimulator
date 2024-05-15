@@ -12,6 +12,8 @@ public class Wheel : MonoBehaviour
 
     private Transform wheelMesh;
     public Vector3 groundVelocityOS, groundVelocityWS;
+    public bool isPowered;
+
     public float staticFrictionCoefficient;
     public AnimationCurve fc_DryAsphalt, fc_WetAsphalt;
 
@@ -44,7 +46,11 @@ public class Wheel : MonoBehaviour
             else frictionCoefficient = fc_DryAsphalt.Evaluate(slip);
             //rb.AddForceAtPosition(frictionCoefficient * normalForce * (-appliedVelocity.x * biTangent - appliedVelocity.y * Tangent).normalized, hitPosition);
 
-            rb.AddForceAtPosition(100f * (-appliedVelocity.x * biTangent + (- appliedVelocity.y + givenVelocity.y) * Tangent), hitPosition);
+            if (isPowered) {
+                rb.AddForceAtPosition(frictionCoefficient * 0.05f * normalForce * (-appliedVelocity.x * biTangent + (- appliedVelocity.y + givenVelocity.y) * Tangent), hitPosition);
+            } else {
+                rb.AddForceAtPosition(frictionCoefficient * 0.05f * normalForce * (-appliedVelocity.x * biTangent), hitPosition);
+            }
 
             Debug.DrawRay(hitPosition, biTangent, Color.red);
             Debug.DrawRay(hitPosition, Tangent, Color.blue);

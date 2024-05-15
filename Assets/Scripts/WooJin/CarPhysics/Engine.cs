@@ -98,9 +98,9 @@ public class Engine : MonoBehaviour
         currentEngineRPM += currentTorque / shaftInertia * dt;
         if (state == EEngineState.On && currentEngineRPM > 0) {
             // Add rpm based on throttle amount
-            currentEngineRPM += 0.1f * _throttlePosition * (maxEngineRPM - currentEngineRPM) * dt;
+            currentEngineRPM += 0.9f * _throttlePosition * (maxEngineRPM - currentEngineRPM) * dt;
             // Loss of rpm due to friction and resistance
-            currentEngineRPM -= 6f * dt;
+            currentEngineRPM -= (currentEngineRPM - 850) * 0.02f * dt;
         }
     }
 
