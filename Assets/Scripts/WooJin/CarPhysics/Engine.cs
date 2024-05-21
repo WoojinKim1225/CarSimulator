@@ -30,7 +30,7 @@ public class Engine : MonoBehaviour
     [Header("Characteristics")]
 
     [SerializeField] private EEngineState state;
-    public int State {set => state = (EEngineState)value;}
+    public int State {get => (int)state; set => state = (EEngineState)value;}
     
     [SerializeField] private AnimationCurve TorqueCurve;
 
