@@ -11,6 +11,8 @@ public class CarControl : MonoBehaviour
     public PlayerCarInput input;
     public Suspension wheelFL, wheelFR, wheelBL, wheelBR;
 
+    public float steerUserInput;
+
     [Header("Car Specs")]
     public float wheelBase;
     public float rearTrack;
@@ -29,8 +31,8 @@ public class CarControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ackermannAngleLeft = Mathf.Rad2Deg * Mathf.Atan2(2 * wheelBase * turnCurvature, 2 + Mathf.Sign(input.SteerUserInput) * rearTrack * turnCurvature) * input.SteerUserInput;
-        ackermannAngleRight = Mathf.Rad2Deg * Mathf.Atan2(2 * wheelBase * turnCurvature, 2 - Mathf.Sign(input.SteerUserInput) *  rearTrack * turnCurvature) * input.SteerUserInput;
+        ackermannAngleLeft = Mathf.Rad2Deg * Mathf.Atan2(2 * wheelBase * turnCurvature, 2 + Mathf.Sign(steerUserInput) * rearTrack * turnCurvature) * steerUserInput;
+        ackermannAngleRight = Mathf.Rad2Deg * Mathf.Atan2(2 * wheelBase * turnCurvature, 2 - Mathf.Sign(steerUserInput) *  rearTrack * turnCurvature) * steerUserInput;
 
         wheelFL.transform.localRotation = Quaternion.Euler(0, ackermannAngleLeft, 0);
         wheelFR.transform.localRotation = Quaternion.Euler(0, ackermannAngleRight, 0);
