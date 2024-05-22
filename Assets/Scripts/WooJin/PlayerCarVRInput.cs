@@ -25,19 +25,19 @@ public class PlayerCarVRInput : MonoBehaviour
             fl.isBrake = true;
             fr.isBrake = true;
             bl.isBrake = true;
-            bl.isBrake = true;
+            br.isBrake = true;
         } else if (accel.action.ReadValue<float>() > 0) {
             engine.throttlePosition = accel.action.ReadValue<float>();
             fl.isBrake = false;
             fr.isBrake = false;
             bl.isBrake = false;
-            bl.isBrake = false;
+            br.isBrake = false;
         } else {
             engine.throttlePosition = 0;
             fl.isBrake = false;
             fr.isBrake = false;
             bl.isBrake = false;
-            bl.isBrake = false;
+            br.isBrake = false;
         }
     }
 }
