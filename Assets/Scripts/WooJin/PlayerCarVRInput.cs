@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class PlayerCarVRInput : MonoBehaviour
 {
     public InputActionReference accel, brake;
     public Wheel fl, fr, bl, br;
+    private Wheel[] wheels => new Wheel[4] {fl, fr, bl, br};
     public Engine engine;
 
 
@@ -22,22 +24,19 @@ public class PlayerCarVRInput : MonoBehaviour
     {
         if (brake.action.ReadValue<float>() > 0) {
             engine.throttlePosition = 0;
-            fl.isBrake = true;
-            fr.isBrake = true;
-            bl.isBrake = true;
-            br.isBrake = true;
+            foreach (var wheel in wheels) {
+                wheel.isBrake = true;
+            }
         } else if (accel.action.ReadValue<float>() > 0) {
             engine.throttlePosition = accel.action.ReadValue<float>();
-            fl.isBrake = false;
-            fr.isBrake = false;
-            bl.isBrake = false;
-            br.isBrake = false;
+            foreach (var wheel in wheels) {
+                wheel.isBrake = false;
+            }
         } else {
             engine.throttlePosition = 0;
-            fl.isBrake = false;
-            fr.isBrake = false;
-            bl.isBrake = false;
-            br.isBrake = false;
+            foreach (var wheel in wheels) {
+                wheel.isBrake = false;
+            }
         }
     }
 }

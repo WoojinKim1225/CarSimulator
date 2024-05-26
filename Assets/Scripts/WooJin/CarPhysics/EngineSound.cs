@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class EngineSound : MonoBehaviour
 {
-    AudioSource audioSource;
+    public AudioSource engineIdleAudioSource, engineStartAudioSource;
     public Engine engine;
+    public int beforeEngineState;
 
-    void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
 
     void Update()
     {
-        if (engine.State == (int)EEngineState.Start) {
-            audioSource.Play();
+        if (engine.State == (int)EEngineState.Start && beforeEngineState != (int)EEngineState.Start) {
+            engineIdleAudioSource.Play();
+            engineStartAudioSource.Play();
+        }
+        if (engine.State == (int)EEngineState.On && beforeEngineState == (int)EEngineState.On) {
+            engineStartAudioSource.Stop();
         }
         if (engine.State < (int)EEngineState.On) {
-            audioSource.Stop();
+            engineIdleAudioSource.Stop();
         }
+        beforeEngineState = engine.State;
         float pitch = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 8500, engine.currentEngineRPM));
-        audioSource.pitch = pitch;
+        engineIdleAudioSource.pitch = pitch;
     }
 }
