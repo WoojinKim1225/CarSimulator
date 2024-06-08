@@ -26,6 +26,8 @@ public class Wheel : MonoBehaviour
     public float slip;
     public float frictionCoefficient;
 
+    public float f;
+
     private void Awake() {
         wheelMesh = transform.GetChild(0).transform;
     }
@@ -49,12 +51,12 @@ public class Wheel : MonoBehaviour
 
             if (!isBrake) {
                 if (isPowered) {
-                    rb.AddForceAtPosition(frictionCoefficient * 0.1f * normalForce * (-appliedVelocity.x * biTangent + (- appliedVelocity.y + givenVelocity.y) * Tangent), hitPosition);
+                    rb.AddForceAtPosition(frictionCoefficient * f * normalForce * (-appliedVelocity.x * biTangent + (- appliedVelocity.y + givenVelocity.y) * Tangent), hitPosition);
                 } else {
-                    rb.AddForceAtPosition(frictionCoefficient * 0.1f * normalForce * (-appliedVelocity.x * biTangent), hitPosition);
+                    rb.AddForceAtPosition(frictionCoefficient * f  * normalForce * (-appliedVelocity.x * biTangent), hitPosition);
                 }
             } else {
-                rb.AddForceAtPosition(frictionCoefficient * 0.1f * normalForce * (-appliedVelocity.x * biTangent - appliedVelocity.y * Tangent), hitPosition);
+                rb.AddForceAtPosition(frictionCoefficient * f * normalForce * (-appliedVelocity.x * biTangent - appliedVelocity.y * Tangent), hitPosition);
             }
 
             Debug.DrawRay(hitPosition, biTangent, Color.red);

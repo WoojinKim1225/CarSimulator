@@ -23,7 +23,7 @@ public class Engine : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float _throttlePosition;
     public float throttlePosition {set => _throttlePosition = value;}
-    public float carSpeed;
+    public float carSpeed; //[m/s]
     public float fanSpeed;
     private float airSpeed => Mathf.Abs(carSpeed * 0.1f + fanSpeed);
 
