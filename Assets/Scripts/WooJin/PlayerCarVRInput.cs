@@ -9,6 +9,7 @@ public class PlayerCarVRInput : MonoBehaviour
     public InputActionReference accel, brake;
     public Wheel fl, fr, bl, br;
     private Wheel[] wheels => new Wheel[4] {fl, fr, bl, br};
+    public AutomaticTransmission automaticTransmission;
     public Engine engine;
 
 
@@ -25,17 +26,17 @@ public class PlayerCarVRInput : MonoBehaviour
         if (brake.action.ReadValue<float>() > 0) {
             engine.throttlePosition = 0;
             foreach (var wheel in wheels) {
-                wheel.isBrake = true;
+                wheel.isBrake = brake.action.ReadValue<float>();
             }
         } else if (accel.action.ReadValue<float>() > 0) {
             engine.throttlePosition = accel.action.ReadValue<float>();
             foreach (var wheel in wheels) {
-                wheel.isBrake = false;
+                wheel.isBrake = 0;
             }
         } else {
             engine.throttlePosition = 0;
             foreach (var wheel in wheels) {
-                wheel.isBrake = false;
+                wheel.isBrake = 0;
             }
         }
     }

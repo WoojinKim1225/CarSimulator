@@ -17,6 +17,15 @@ public class AiCar : MonoBehaviour
 
     [SerializeField] private int i = 1;
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        lineRenderer.positionCount = 8;
+        for (int i = 0; i < 8; i++) {
+            lineRenderer.SetPosition(i, new Vector3((int)Random.Range(0, 4) - 2.5f * 1.5f, 10f, i*20f + 10f));
+        }    
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();

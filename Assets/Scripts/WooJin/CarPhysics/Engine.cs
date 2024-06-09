@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public enum EEngineState
 {
     Lock, Acc, On, Start
@@ -12,6 +11,35 @@ public enum EEngineState
 
 public class Engine : MonoBehaviour
 {
+    private static Engine _instance;
+    public static Engine Instance
+    {
+        get
+        {
+            if (_instance == null) _instance = FindObjectOfType<Engine>();
+            return _instance;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        _instance = null;
+    }
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+
     private const float RPM2RPS = Mathf.PI / 30f;
     private const float RPS2RPM = 30f / Mathf.PI;
 
@@ -72,7 +100,9 @@ public class Engine : MonoBehaviour
             _throttlePosition += (input.GasUserInput - 0.5f) * Time.deltaTime;
             _throttlePosition = Mathf.Clamp01(_throttlePosition);
         }
-
+        if (state == EEngineState.Lock) {
+            currentEngineRPM *= 1 - Mathf.Exp(-Time.fixedDeltaTime * 10f);
+        }
         ModifyEngineRPM(Time.deltaTime);
 
         float h = 2f * Mathf.Pow(airSpeed * 0.005f, 0.8f) * Mathf.Pow(air.Humidity, 0.4f); // [W/(m^2 * K)]

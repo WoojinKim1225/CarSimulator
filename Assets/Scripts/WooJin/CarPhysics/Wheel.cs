@@ -13,7 +13,8 @@ public class Wheel : MonoBehaviour
     private Transform wheelMesh;
     public Vector3 groundVelocityOS, groundVelocityWS;
     public bool isPowered;
-    public bool isBrake;
+    public float isBrake;
+    public bool isHandBrake;
 
     public float staticFrictionCoefficient;
     public AnimationCurve fc_DryAsphalt, fc_WetAsphalt;
@@ -49,15 +50,16 @@ public class Wheel : MonoBehaviour
             else frictionCoefficient = fc_DryAsphalt.Evaluate(slip);
             //rb.AddForceAtPosition(frictionCoefficient * normalForce * (-appliedVelocity.x * biTangent - appliedVelocity.y * Tangent).normalized, hitPosition);
 
-            if (!isBrake) {
-                if (isPowered) {
-                    rb.AddForceAtPosition(frictionCoefficient * f * normalForce * (-appliedVelocity.x * biTangent + (- appliedVelocity.y + givenVelocity.y) * Tangent), hitPosition);
-                } else {
-                    rb.AddForceAtPosition(frictionCoefficient * f  * normalForce * (-appliedVelocity.x * biTangent), hitPosition);
-                }
-            } else {
+            if (isHandBrake) {
                 rb.AddForceAtPosition(frictionCoefficient * f * normalForce * (-appliedVelocity.x * biTangent - appliedVelocity.y * Tangent), hitPosition);
             }
+            else {
+                if (isPowered) {
+                    rb.AddForceAtPosition(frictionCoefficient * f * normalForce * (-appliedVelocity.x * biTangent + Mathf.Lerp(- appliedVelocity.y + givenVelocity.y, -appliedVelocity.y, isBrake) * Tangent), hitPosition);
+                } else {
+                    rb.AddForceAtPosition(frictionCoefficient * f  * normalForce * (-appliedVelocity.x * biTangent + Mathf.Lerp(0, -appliedVelocity.y, isBrake) * Tangent), hitPosition);
+                }
+            } 
 
             Debug.DrawRay(hitPosition, biTangent, Color.red);
             Debug.DrawRay(hitPosition, Tangent, Color.blue);

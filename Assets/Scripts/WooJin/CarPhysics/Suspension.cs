@@ -32,6 +32,8 @@ public class Suspension : MonoBehaviour
     private float normalForce;
     private Vector3 normalForceWS;
 
+    public LayerMask whatIsGround;
+
     void Awake()
     {
         _rb = GetComponentInParent<Rigidbody>();
@@ -49,7 +51,7 @@ public class Suspension : MonoBehaviour
     private void FixedUpdate() {
         sphereCastStart = transform.position + transform.up * minLength;
         
-        if (Physics.SphereCast(sphereCastStart, wheelRadius, -transform.up, out RaycastHit hit, maxLength)) {
+        if (Physics.SphereCast(sphereCastStart, wheelRadius, -transform.up, out RaycastHit hit, maxLength, whatIsGround)) {
             wheelCenter = hit.point + hit.normal * wheelRadius; // 바퀴 축 위치
             wheelMesh.position = wheelCenter;
 

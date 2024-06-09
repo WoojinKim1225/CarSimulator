@@ -16,8 +16,10 @@ public class AutomaticTransmission : MonoBehaviour
     public float inputRPM;
     public float torqueConvertedRPM;
 
-    public EGear gear;
-    public int clutchNumber;
+    public static EGear gear;
+    public void SetGear(int i) {gear = (EGear)i;}
+    public static int clutchNumber;
+
     private readonly Dictionary<int, int> numberToMode = new Dictionary<int, int>{
         { -1, 20 },
         { 0, 0 },
@@ -61,13 +63,6 @@ public class AutomaticTransmission : MonoBehaviour
         c5PGear = null;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         torqueConvertedRPM = TorqueConverter(inputRPM, torqueConvertedRPM, Time.deltaTime);
@@ -157,6 +152,7 @@ public class AutomaticTransmission : MonoBehaviour
         switch (gear)
         {
             case EGear.Parking:
+                clutchNumber = 0;
                 break;
             case EGear.Reverse:
                 clutchNumber = -1;

@@ -23,7 +23,8 @@ public class XRSliderBinning : MonoBehaviour
 
     void Update()
     {
-        automaticTransmission.gear = (EGear)(int)(slider.value * (range - 1));
+        if (Mathf.Cos(slider.value * Mathf.PI * 2f * (range - 1f)) < 0) return;
+        automaticTransmission.SetGear((int)(slider.value * (range - 1)));
         if (bin(slider.value) != bin(before)) {
             audioRandomPlayer.PlayRandom();
             before = slider.value;
@@ -31,6 +32,6 @@ public class XRSliderBinning : MonoBehaviour
     }
 
     private float bin(float value) {
-        return Mathf.Floor(value * (range - 1) + 0.5f) / (range - 1);
+        return Mathf.Round(value * (range - 1)) / (range - 1);
     }
 }

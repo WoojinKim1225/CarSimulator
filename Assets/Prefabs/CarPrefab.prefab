@@ -84,7 +84,7 @@ MonoBehaviour:
   - {fileID: 8597588522697103644}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 512
   targetSpeed: 0
   lineRenderer: {fileID: 2842735744831694873}
   i: 0
