@@ -9,7 +9,6 @@ public class PlayerCarVRInput : MonoBehaviour
     public InputActionReference accel, brake;
     public Wheel fl, fr, bl, br;
     private Wheel[] wheels => new Wheel[4] {fl, fr, bl, br};
-    public AutomaticTransmission automaticTransmission;
     public Engine engine;
 
 

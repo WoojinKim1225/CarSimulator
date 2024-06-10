@@ -50,10 +50,11 @@ public class Engine : MonoBehaviour
     //[SerializeField] private Battery battery;
     [Range(0f, 1f)]
     [SerializeField] private float _throttlePosition;
-    public float throttlePosition {set => _throttlePosition = value;}
+    public float throttlePosition {get => _throttlePosition; set => _throttlePosition = value;}
     public float carSpeed; //[m/s]
     public float fanSpeed;
     private float airSpeed => Mathf.Abs(carSpeed * 0.1f + fanSpeed);
+    public bool isAccel = false;
 
     [Header("Characteristics")]
 
@@ -93,17 +94,21 @@ public class Engine : MonoBehaviour
 
     void Update()
     {
-        if (state == EEngineState.Start) {
-            currentEngineRPM = 1200f;
+        if (!isAccel) {
+            if (state == EEngineState.Start) {
+                currentEngineRPM = 1200f;
+            }
+            if (state == EEngineState.On && currentEngineRPM > 0) {
+                _throttlePosition += (input.GasUserInput - 0.5f) * Time.deltaTime;
+                _throttlePosition = Mathf.Clamp01(_throttlePosition);
+            }
+            if (state == EEngineState.Lock) {
+                currentEngineRPM *= 0.99f;
+            }
+            ModifyEngineRPM(Time.deltaTime);
+        } else {
+            currentEngineRPM += (9500 - currentEngineRPM) * Time.fixedDeltaTime;
         }
-        if (state == EEngineState.On && currentEngineRPM > 0) {
-            _throttlePosition += (input.GasUserInput - 0.5f) * Time.deltaTime;
-            _throttlePosition = Mathf.Clamp01(_throttlePosition);
-        }
-        if (state == EEngineState.Lock) {
-            currentEngineRPM *= 1 - Mathf.Exp(-Time.fixedDeltaTime * 10f);
-        }
-        ModifyEngineRPM(Time.deltaTime);
 
         float h = 2f * Mathf.Pow(airSpeed * 0.005f, 0.8f) * Mathf.Pow(air.Humidity, 0.4f); // [W/(m^2 * K)]
         
@@ -129,9 +134,9 @@ public class Engine : MonoBehaviour
         currentEngineRPM += currentTorque / shaftInertia * dt;
         if (state == EEngineState.On && currentEngineRPM > 0) {
             // Add rpm based on throttle amount
-            currentEngineRPM += 0.9f * _throttlePosition * (maxEngineRPM - currentEngineRPM) * dt;
+            currentEngineRPM += 0.4f * _throttlePosition * (maxEngineRPM - currentEngineRPM) * dt;
             // Loss of rpm due to friction and resistance
-            currentEngineRPM -= (currentEngineRPM - 850) * 0.02f * dt;
+            currentEngineRPM -= (currentEngineRPM - 850) * 0.2f * dt;
         }
     }
 
@@ -150,5 +155,13 @@ public class Engine : MonoBehaviour
 
     void SendToTransmission() {
         transmission.inputRPM = currentEngineRPM;
+    }
+
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (GameManager.Instance.gameState == GameManager.GameState.Clear || GameManager.Instance.gameState == GameManager.GameState.Null) return;
+        carBody.constraints = RigidbodyConstraints.FreezeAll;
+        GameManagerTalker.instance.gameOver();
     }
 }

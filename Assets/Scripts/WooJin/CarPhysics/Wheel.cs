@@ -28,9 +28,11 @@ public class Wheel : MonoBehaviour
     public float frictionCoefficient;
 
     public float f;
+    public AudioSource audioSource;
 
     private void Awake() {
         wheelMesh = transform.GetChild(0).transform;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update() {
@@ -45,21 +47,29 @@ public class Wheel : MonoBehaviour
             appliedVelocity.x = Vector3.Dot(biTangent, groundVelocityWS);
             appliedVelocity.y = Vector3.Dot(Tangent, groundVelocityWS);
 
-            slip = Mathf.Clamp01((appliedVelocity - givenVelocity).magnitude / givenVelocity.magnitude);
+            slip = Mathf.Clamp01((appliedVelocity - givenVelocity).magnitude / Mathf.Max(givenVelocity.magnitude, appliedVelocity.magnitude));
             if (givenVelocity.magnitude < 0.1f) frictionCoefficient = staticFrictionCoefficient * appliedVelocity.magnitude;
             else frictionCoefficient = fc_DryAsphalt.Evaluate(slip);
             //rb.AddForceAtPosition(frictionCoefficient * normalForce * (-appliedVelocity.x * biTangent - appliedVelocity.y * Tangent).normalized, hitPosition);
-
+            if (rb.constraints == RigidbodyConstraints.FreezeAll) {
+                audioSource.Stop();
+            }
             if (isHandBrake) {
                 rb.AddForceAtPosition(frictionCoefficient * f * normalForce * (-appliedVelocity.x * biTangent - appliedVelocity.y * Tangent), hitPosition);
+                audioSource.volume = Mathf.Clamp01(appliedVelocity.magnitude);
+                audioSource.pitch = Mathf.Clamp01(appliedVelocity.magnitude);
             }
             else {
                 if (isPowered) {
                     rb.AddForceAtPosition(frictionCoefficient * f * normalForce * (-appliedVelocity.x * biTangent + Mathf.Lerp(- appliedVelocity.y + givenVelocity.y, -appliedVelocity.y, isBrake) * Tangent), hitPosition);
+                    audioSource.volume = Mathf.Clamp01(Vector3.Lerp(appliedVelocity - givenVelocity, appliedVelocity, isBrake).magnitude * 0.1f - 0.4f);
+                    audioSource.pitch = Mathf.Clamp01(0.5f);
                 } else {
                     rb.AddForceAtPosition(frictionCoefficient * f  * normalForce * (-appliedVelocity.x * biTangent + Mathf.Lerp(0, -appliedVelocity.y, isBrake) * Tangent), hitPosition);
                 }
-            } 
+            }
+
+            
 
             Debug.DrawRay(hitPosition, biTangent, Color.red);
             Debug.DrawRay(hitPosition, Tangent, Color.blue);

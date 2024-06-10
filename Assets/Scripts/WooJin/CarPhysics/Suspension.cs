@@ -51,7 +51,7 @@ public class Suspension : MonoBehaviour
     private void FixedUpdate() {
         sphereCastStart = transform.position + transform.up * minLength;
         
-        if (Physics.SphereCast(sphereCastStart, wheelRadius, -transform.up, out RaycastHit hit, maxLength, whatIsGround)) {
+        if (Physics.SphereCast(sphereCastStart, wheelRadius, -transform.up, out RaycastHit hit, maxLength, whatIsGround) && Physics.Raycast(sphereCastStart, -transform.up, out hit, maxLength + wheelRadius, whatIsGround)) {
             wheelCenter = hit.point + hit.normal * wheelRadius; // 바퀴 축 위치
             wheelMesh.position = wheelCenter;
 

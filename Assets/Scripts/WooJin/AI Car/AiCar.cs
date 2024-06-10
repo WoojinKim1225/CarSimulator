@@ -22,8 +22,9 @@ public class AiCar : MonoBehaviour
     {
         lineRenderer.positionCount = 8;
         for (int i = 0; i < 8; i++) {
-            lineRenderer.SetPosition(i, new Vector3((int)Random.Range(0, 4) - 2.5f * 1.5f, 10f, i*20f + 10f));
-        }    
+            lineRenderer.SetPosition(i, new Vector3(((int)Random.Range(0, 4)-1.5f) * 2.5f, -10f, i*20f + 10f));
+        }
+        transform.localPosition = lineRenderer.GetPosition(0) - Vector3.forward * 10f + Vector3.up * 11f;
     }
 
     void Start()

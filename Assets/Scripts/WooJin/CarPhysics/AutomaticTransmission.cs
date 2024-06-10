@@ -17,6 +17,7 @@ public class AutomaticTransmission : MonoBehaviour
     public float torqueConvertedRPM;
 
     public static EGear gear;
+    public EGear GetGear() {return gear;}
     public void SetGear(int i) {gear = (EGear)i;}
     public static int clutchNumber;
 
@@ -152,7 +153,6 @@ public class AutomaticTransmission : MonoBehaviour
         switch (gear)
         {
             case EGear.Parking:
-                clutchNumber = 0;
                 break;
             case EGear.Reverse:
                 clutchNumber = -1;
@@ -173,6 +173,6 @@ public class AutomaticTransmission : MonoBehaviour
         if (gear == EGear.Neutral || gear == EGear.Parking) {
             return convert;
         }
-        return convert + (input - convert) * 0.1f * dt;
+        return convert + (input - convert) * 0.1f * dt * Mathf.Lerp(1f,0.2f ,clutchNumber * 0.2f);
     }
 }

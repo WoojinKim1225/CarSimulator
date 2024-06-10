@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
         SuddenAccel = 2,
     }
     public GameState gameState = GameState.Null;
+
+    public GameObject RevMode, AccMode;
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -32,7 +35,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public Traffics traffics;
+    Traffics traffics;
+    public bool b = false;
 
     private void OnApplicationQuit()
     {
@@ -54,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        traffics = Traffics.Instance;
     }
 
     // Update is called once per frame
@@ -63,13 +67,27 @@ public class GameManager : MonoBehaviour
         traffics.state = (int)gameState;
         switch (gameState) {
             case GameState.ReverseRun:
+                if (!b) {
+                    b = true;
+                    Instantiate(RevMode, Vector3.zero, Quaternion.identity);
+                }
             break;
             case GameState.SuddenAccel:
+                if (!b) {
+                    b = true;
+                    Instantiate(AccMode, Vector3.zero, Quaternion.identity);
+                }
             break;
             case GameState.Clear:
             break;
             default:
             break;
         }
+    }
+
+    public void GameOver()
+    {
+        gameState = GameState.Null;
+
     }
 }

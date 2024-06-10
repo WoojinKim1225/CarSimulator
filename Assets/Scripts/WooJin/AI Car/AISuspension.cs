@@ -29,7 +29,7 @@ public class AISuspension : MonoBehaviour
             Vector3 vel = rb.GetPointVelocity(hit.point);
             float forceSize = k * (distMax - hit.distance) - c * Vector3.Dot(vel, ray.direction) / Time.fixedDeltaTime;
             float move = (targetSpeed - Vector3.Dot(vel, -transform.up)) / Time.fixedDeltaTime;
-            rb.AddForceAtPosition(hit.normal * forceSize - Vector3.ProjectOnPlane(vel, ray.direction) / Time.fixedDeltaTime + move * (-transform.up), hit.point);
+            rb.AddForceAtPosition(hit.normal * forceSize - Vector3.ProjectOnPlane(vel, ray.direction) / Time.fixedDeltaTime + move * 4f * (-transform.up), hit.point);
             Debug.DrawRay(hit.point, hit.normal * forceSize, Color.blue);
             Debug.DrawRay(hit.point, move * (-transform.up), Color.red);
         }
